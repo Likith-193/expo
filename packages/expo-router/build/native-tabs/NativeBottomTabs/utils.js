@@ -7,6 +7,7 @@ exports.filterAllowedChildrenElements = filterAllowedChildrenElements;
 exports.isChildOfType = isChildOfType;
 exports.shouldTabBeVisible = shouldTabBeVisible;
 exports.getValueFromTypeOrRecord = getValueFromTypeOrRecord;
+exports.getRecordFromTypeOrRecord = getRecordFromTypeOrRecord;
 const react_1 = __importDefault(require("react"));
 function filterAllowedChildrenElements(children, components) {
     return react_1.default.Children.toArray(children).filter((child) => react_1.default.isValidElement(child) && components.includes(child.type));
@@ -24,5 +25,14 @@ function getValueFromTypeOrRecord(value, key) {
         return value[key];
     }
     return value;
+}
+function getRecordFromTypeOrRecord(value, keys, defaultKey) {
+    if (value && typeof value === 'object') {
+        const hasValidKeys = keys.some((key) => key in value);
+        if (hasValidKeys) {
+            return value;
+        }
+    }
+    return { [defaultKey]: value };
 }
 //# sourceMappingURL=utils.js.map

@@ -41,7 +41,7 @@ export interface SourceIconCombination {
    * @platform Android
    * @platform iOS
    */
-  src?: TypeOrRecord<ImageSourcePropType, 'default' | 'selected'>;
+  src?: TypeOrRecord<ImageSourcePropType | React.ReactElement, 'default' | 'selected'>;
   drawable?: never;
   sf?: never;
 }
@@ -87,6 +87,47 @@ export type IconProps = { selectedColor?: ColorValue } & (
  * @platform android
  */
 export function Icon(props: IconProps) {
+  return null;
+}
+
+export interface VectorIconProps<NameT extends string> {
+  /**
+   * The family of the vector icon.
+   *
+   * @example
+   * ```tsx
+   * import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+   * ```
+   */
+  family: {
+    getImageSource: (name: NameT, size: number, color: ColorValue) => Promise<ImageSourcePropType>;
+  };
+  /**
+   * The name of the vector icon.
+   */
+  name: NameT;
+}
+
+/**
+ * Helper component which can be used to load vector icons for Native Tabs.
+ * 
+ * @example
+ * ```tsx
+ * import { NativeTabs, VectorIcon } from 'expo-router';
+ * import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+ * 
+ * export default Layout(){
+ *   return (
+ *     <NativeTabs>
+ *       <NativeTab name="index">
+ *         <Icon src={<VectorIcon family={MaterialCommunityIcons} name="home" />} />
+ *       </NativeTab>
+ *     </NativeTabs>
+ *   );
+ * }
+ * ```
+ */
+export function VectorIcon<NameT extends string>(props: VectorIconProps<NameT>) {
   return null;
 }
 

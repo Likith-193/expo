@@ -37,3 +37,18 @@ export function getValueFromTypeOrRecord<T, K extends string>(
   }
   return value as T | undefined;
 }
+
+export function getRecordFromTypeOrRecord<T, K extends string>(
+  value: TypeOrRecord<T, K> | undefined,
+  keys: K[],
+  defaultKey: K
+): { [key in K]?: T } {
+  if (value && typeof value === 'object') {
+    const hasValidKeys = keys.some((key) => key in value);
+    if (hasValidKeys) {
+      return value as { [key in K]?: T };
+    }
+  }
+
+  return { [defaultKey]: value as T | undefined } as { [key in K]?: T };
+}

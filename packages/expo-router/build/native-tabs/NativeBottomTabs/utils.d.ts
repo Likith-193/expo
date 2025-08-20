@@ -5,4 +5,7 @@ export declare function filterAllowedChildrenElements<Components extends JSXElem
 export declare function isChildOfType<T extends JSXElementConstructor<any>>(child: ReactNode, type: T): child is React.ReactElement<React.ComponentProps<T>, T>;
 export declare function shouldTabBeVisible(options: ExtendedNativeTabOptions): boolean;
 export declare function getValueFromTypeOrRecord<T, K extends string>(value: TypeOrRecord<T, K> | undefined, key: K): T | undefined;
+export declare function getRecordFromTypeOrRecord<T, K extends string>(value: TypeOrRecord<T, K> | undefined, keys: K[], defaultKey: K): {
+    [key in K]?: T;
+};
 //# sourceMappingURL=utils.d.ts.map
